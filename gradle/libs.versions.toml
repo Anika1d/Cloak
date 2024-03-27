@@ -10,8 +10,6 @@ compose-ui = "1.6.3" # https://developer.android.com/jetpack/androidx/releases/c
 serialization-json = "1.6.2" # https://github.com/Kotlin/kotlinx.serialization/releasesm
 ktx-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
 core-ktx = "1.12.0"
-junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
 compose-compiler = "1.5.8" # https://developer.android.com/jetpack/androidx/releases/compose#versions
 appsflyer = "6.13.0"
 ktor = "2.3.8"
@@ -19,15 +17,20 @@ koin = "3.6.0-wasm-alpha2"
 datastore = "1.0.0"
 moko = "0.16.1"
 slf4j = "2.0.12"
+browser = "1.8.0"
+webkit = "1.10.0"
+
 [libraries]
 # Gradle - Core
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 kotlin-ksp-gradle = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
+
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-general" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx" }
 kotlin-serialization-gen = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-general" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
+
 
 # UI
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "ktx-activity" }
@@ -39,6 +42,7 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 
 #Datastore
 datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+
 
 #AppsFlyer
 appsflyer = { module = "com.appsflyer:af-android-sdk", version.ref = "appsflyer" }
@@ -56,13 +60,21 @@ koin-core-coroutines = { module = "io.insert-koin:koin-core-coroutines", version
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 
+
 #Moko
 moko-mvvm-gen-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "moko" }
 moko-mvvm-flow-compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko-mvvm-livedata-compose = { module = "dev.icerock.moko:mvvm-livedata-compose", version.ref = "moko" }
 
+#Browser (for custom tabs)
+browser = { module = "androidx.browser:browser", version.ref = "browser" }
+
+#Webkit
+webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
+
 #Slf4j
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-gradle" }
 android-lib = { id = "com.android.library", version.ref = "android-gradle" }
