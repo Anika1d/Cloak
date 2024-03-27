@@ -18,7 +18,8 @@ dependencies {
     implementation(libs.moko.mvvm.gen.compose)
     implementation(libs.moko.mvvm.livedata.compose)
     implementation(libs.moko.mvvm.flow.compose)
-
+    implementation(libs.browser)
     implementation(projects.core.data)
     implementation(projects.datastore)
+    implementation(libs.webkit)
 }
