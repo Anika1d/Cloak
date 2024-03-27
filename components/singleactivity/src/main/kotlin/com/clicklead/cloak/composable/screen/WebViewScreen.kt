@@ -4,7 +4,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -45,12 +47,16 @@ fun WebViewScreen() {
             val rawUrl = remember(viewModel) { viewModel.url }.observeAsState().value
             Column {
                 Text(text = "Ваша сырая ссылка: $rawUrl")
-                WebViewLayout(url = "http://fposttestb.xyz/testing.html",
-                    //ЗАХАРДКОДИЛ ДЛЯ  ДЕМОНСТРАЦИИ СЕРВИСА "http://fposttestb.xyz/testing.html"
+                WebViewLayout(
+                    modifier = Modifier
+                        .fillMaxHeight(0.9f)
+                        .navigationBarsPadding(),
+                    url = "https://fposttestb.xyz/testing.html",
+                    //ЗАХАРДКОДИЛ ДЛЯ  ДЕМОНСТРАЦИИ СЕРВИСА "https://fposttestb.xyz/testing.html"
                     // а так передать условно нужно  viewModel.url.value
                     onChangeUrl = {
                         //_url->viewModel.setUrl(_url)
-                        //ЗАКОММЕНТИЛ ДЛЯ ДЕМОНСТРАЦИИ СЕРВИСА "http://fposttestb.xyz/testing.html"
+                        //ЗАКОММЕНТИЛ ДЛЯ ДЕМОНСТРАЦИИ СЕРВИСА "https://fposttestb.xyz/testing.html"
                     })
 
             }
