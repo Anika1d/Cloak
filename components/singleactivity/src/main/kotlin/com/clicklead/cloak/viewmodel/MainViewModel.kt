@@ -55,9 +55,10 @@ class MainViewModel(
             _url.value = managerDataStore.getUrl() ?: ""
             if (_url.value.isEmpty()) {
                 delay(10 * 1000)
-                installType.value?.let {
+                installType.value.let {
+                    val insT = it ?: InstallType.ORGANIC(install = "organic")
                     getUrlUseCase.invoke(
-                        com.clicklead.cloak.core.data.request.InstallTypeDto(it.install)
+                        com.clicklead.cloak.core.data.request.InstallTypeDto(insT.install)
                     ).collect { result ->
                         when (result) {
                             is ResultState.Success -> {
