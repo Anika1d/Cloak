@@ -20,8 +20,9 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import com.clicklead.cloak.tools.getActivity
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun WebViewLayout(
+    modifier: Modifier,
     url: String,
     onChangeUrl: (String) -> Unit = {}
 ) {
@@ -77,10 +79,14 @@ fun WebViewLayout(
     }
 
     BackHandler() {
-        webView.goBack()
+        if (webView.canGoBack())
+            webView.goBack()
+        else {
+            context.getActivity()?.finish()
+        }
     }
     AndroidView(
-        modifier = Modifier.fillMaxHeight(0.9f),
+        modifier = modifier,
         factory = { _ ->
             webView.apply {
                 settings.apply {
@@ -172,6 +178,12 @@ fun WebViewLayout(
                         ): Boolean {
                             val _url = web!!.url.toString()
                             if (URLUtil.isNetworkUrl(_url)) {
+                                if (web.isRedirect) {
+                                    val builder = CustomTabsIntent.Builder()
+                                    val customTabsIntent = builder.build()
+                                    customTabsIntent.launchUrl(context, web.url)
+                                    return true
+                                }
                                 return false
                             }
                             return try {
@@ -179,8 +191,11 @@ fun WebViewLayout(
                                 startActivity(context, intent, bundleOf())
                                 true
                             } catch (e: Exception) {
-                                Toast.makeText(context, "App is not installed", Toast.LENGTH_LONG)
-                                    .show()
+                                Toast.makeText(
+                                    context,
+                                    "App is not installed",
+                                    Toast.LENGTH_LONG
+                                ) .show()
                                 false
                             }
                         }
@@ -192,8 +207,9 @@ fun WebViewLayout(
                 )
             }
         },
-        update = { _webView ->
-            _webView.loadUrl(url)
-        }
+        update = { _ -> }
     )
+    LaunchedEffect(key1 = url, block = {
+        webView.loadUrl(url)
+    })
 }
